@@ -153,9 +153,37 @@ Example:
 lina delete bff5ca22-bfe2-400a-a1d1-0edb808e75c7
 ```
 
+#### Configuration
+
+Manage Lina's configuration, including custom storage location.
+
+**View current configuration:**
+```bash
+lina config
+```
+
+**Get a specific config value:**
+```bash
+lina config get storage
+```
+
+**Set custom storage location:**
+```bash
+lina config set storage ~/Dropbox/lina
+# or
+lina config set storage ~/path/to/synced/folder
+```
+
+This allows you to:
+- Store tasks in a Syncthing/Dropbox/cloud folder for multi-device sync
+- Keep separate task lists for different purposes
+- Back up tasks to a specific location
+
+After changing the storage location, all subsequent task operations will use the new path.
+
 ## Task Storage
 
-All tasks are stored in a single JSON file at `~/.lina/tasks.json`.
+All tasks are stored in a single JSON file at `~/.lina/tasks.json` by default (customizable via `lina config set storage`).
 
 **Task structure:**
 ```json

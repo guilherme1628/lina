@@ -1,21 +1,21 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import * as os from 'os';
 import { Task } from '../types';
-
-const LINA_DIR = path.join(os.homedir(), '.lina');
-const TASKS_FILE = path.join(LINA_DIR, 'tasks.json');
+import { getStorageDir, getTasksFilePath } from './config';
 
 /**
- * Ensures the .lina directory and tasks.json file exist
+ * Ensures the storage directory and tasks.json file exist
  */
 export function ensureStorage(): void {
-  if (!fs.existsSync(LINA_DIR)) {
-    fs.mkdirSync(LINA_DIR, { recursive: true });
+  const storageDir = getStorageDir();
+  const tasksFile = getTasksFilePath();
+
+  if (!fs.existsSync(storageDir)) {
+    fs.mkdirSync(storageDir, { recursive: true });
   }
 
-  if (!fs.existsSync(TASKS_FILE)) {
-    fs.writeFileSync(TASKS_FILE, JSON.stringify([], null, 2), 'utf-8');
+  if (!fs.existsSync(tasksFile)) {
+    fs.writeFileSync(tasksFile, JSON.stringify([], null, 2), 'utf-8');
   }
 }
 
@@ -26,7 +26,8 @@ export function readTasks(): Task[] {
   ensureStorage();
 
   try {
-    const data = fs.readFileSync(TASKS_FILE, 'utf-8');
+    const tasksFile = getTasksFilePath();
+    const data = fs.readFileSync(tasksFile, 'utf-8');
     return JSON.parse(data) as Task[];
   } catch (error) {
     console.error('Error reading tasks file:', error);
@@ -41,7 +42,8 @@ export function writeTasks(tasks: Task[]): void {
   ensureStorage();
 
   try {
-    fs.writeFileSync(TASKS_FILE, JSON.stringify(tasks, null, 2), 'utf-8');
+    const tasksFile = getTasksFilePath();
+    fs.writeFileSync(tasksFile, JSON.stringify(tasks, null, 2), 'utf-8');
   } catch (error) {
     console.error('Error writing tasks file:', error);
     throw error;

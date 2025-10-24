@@ -6,6 +6,7 @@ import { listCommand } from './commands/list';
 import { completeCommand } from './commands/complete';
 import { uncompleteCommand } from './commands/uncomplete';
 import { deleteCommand } from './commands/delete';
+import { configCommand } from './commands/config';
 import { startTUI } from './tui';
 
 const program = new Command();
@@ -65,6 +66,14 @@ program
   .description('Delete a task')
   .action((id) => {
     deleteCommand(id);
+  });
+
+// Config command
+program
+  .command('config [action] [key] [value]')
+  .description('Manage configuration (get/set storage path)')
+  .action((action, key, value) => {
+    configCommand(action, key, value);
   });
 
 // Default action: open TUI
