@@ -1,0 +1,29 @@
+{
+  "name": "lina",
+  "version": "1.0.0",
+  "description": "A simple CLI task manager",
+  "main": "dist/index.js",
+  "bin": {
+    "lina": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": ["cli", "task", "todo", "manager"],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "commander": "^14.0.1",
+    "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/blessed": "^0.1.25",
+    "@types/node": "^24.9.1",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
